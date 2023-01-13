@@ -10,6 +10,7 @@
 		8B07AC55297066A700B89BC8 /* OpenAIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B07AC4C297066A700B89BC8 /* OpenAIClient.framework */; };
 		8B07AC5A297066A700B89BC8 /* OpenAIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07AC59297066A700B89BC8 /* OpenAIClientTests.swift */; };
 		8B07AC5B297066A700B89BC8 /* OpenAIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B07AC4F297066A700B89BC8 /* OpenAIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8B07AC65297066D400B89BC8 /* OpenAIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07AC64297066D400B89BC8 /* OpenAIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,7 @@
 		8B07AC4F297066A700B89BC8 /* OpenAIClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenAIClient.h; sourceTree = "<group>"; };
 		8B07AC54297066A700B89BC8 /* OpenAIClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenAIClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B07AC59297066A700B89BC8 /* OpenAIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIClientTests.swift; sourceTree = "<group>"; };
+		8B07AC64297066D400B89BC8 /* OpenAIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				8B07AC4F297066A700B89BC8 /* OpenAIClient.h */,
+				8B07AC64297066D400B89BC8 /* OpenAIClient.swift */,
 			);
 			path = OpenAIClient;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				TargetAttributes = {
 					8B07AC4B297066A700B89BC8 = {
 						CreatedOnToolsVersion = 14.1;
+						LastSwiftMigration = 1410;
 					};
 					8B07AC53297066A700B89BC8 = {
 						CreatedOnToolsVersion = 14.1;
@@ -191,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B07AC65297066D400B89BC8 /* OpenAIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +341,7 @@
 		8B07AC5F297066A700B89BC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -356,6 +362,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +371,7 @@
 		8B07AC60297066A700B89BC8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -392,6 +400,7 @@
 		8B07AC62297066A700B89BC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 59U6D5D2Y3;
@@ -408,6 +417,7 @@
 		8B07AC63297066A700B89BC8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 59U6D5D2Y3;
