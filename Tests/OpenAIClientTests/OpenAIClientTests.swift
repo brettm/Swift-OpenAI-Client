@@ -19,9 +19,9 @@ final class OpenAIClientTests: XCTestCase {
     }
 
     func testing() async throws {
-        let client = OpenAPIClient()
+        let client = OpenAIClient()
         let completionsModel = CompletionsModel(model: "text-ada-001", prompt: ["Test"], maxTokens: 1)
-        let service = OpenAPI.completions(completionsModel)
+        let service = OpenAIService.completions(completionsModel)
         do {
             let response = try await service.request(client: client)
             print(response)
