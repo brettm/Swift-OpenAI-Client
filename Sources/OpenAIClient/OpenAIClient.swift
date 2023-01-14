@@ -102,15 +102,28 @@ public enum OpenAIService {
 }
 
 public class OpenAIClient {
-    var version = "v1"
-    var hostURL: URL = URL(string: "https://api.openai.com/")!
+    let version: String
+    let hostURL: URL
     var baseURL: URL {
         hostURL.appending(path: version)
     }
+    let session: URLSession
+    let apiKey: String
+    let orgId: String
 
-    var session: URLSession = URLSession.shared
-    var apiKey: String = "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"
-    var orgId: String = "org-LHn8F46kcMZ3IzDnuySzyYZm"
+    public init(
+        apiKey: String,
+        orgId: String = "org-LHn8F46kcMZ3IzDnuySzyYZm",
+        version: String = "v1",
+        hostURL: URL = URL(string: "https://api.openai.com/")!,
+        session: URLSession = URLSession.shared
+    ) {
+        self.apiKey = apiKey
+        self.orgId = orgId
+        self.version = version
+        self.hostURL = hostURL
+        self.session = session
+    }
 
     private func createRequest(for service: OpenAIService) -> URLRequest {
         var request = URLRequest(url: service.url(host: self.baseURL))

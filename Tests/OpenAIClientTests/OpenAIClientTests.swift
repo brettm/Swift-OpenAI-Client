@@ -19,12 +19,12 @@ final class OpenAIClientTests: XCTestCase {
     }
 
     func testing() async throws {
-        let client = OpenAIClient()
+        let client = OpenAIClient(apiKey: "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")
         let completionsModel = CompletionsModel(model: "text-ada-001", prompt: ["Test"], maxTokens: 1)
         let service = OpenAIService.completions(completionsModel)
         do {
             let response = try await service.request(client: client)
-            print(response)
+            print(response!)
         }
         catch {
             print(error)
