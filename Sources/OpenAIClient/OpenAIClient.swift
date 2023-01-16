@@ -60,7 +60,7 @@ public struct CompletionsResponse: Response {
     var usage: Usage
 }
 
-public enum OpenAPI {
+public enum OpenAIService {
     case completions(CompletionsModel)
 
     var path: String {
@@ -87,7 +87,7 @@ public enum OpenAPI {
         return host.appending(path: self.path)
     }
 
-    func request(client: OpenAPIClient) async throws -> Response? {
+    func request(client: OpenAIClient) async throws -> Response? {
         guard let data = try await client.fetch(self) else {
             return nil
         }
@@ -101,25 +101,38 @@ public enum OpenAPI {
     }
 }
 
-public class OpenAPIClient {
-    var version = "v1"
-    var hostURL: URL = URL(string: "https://api.openai.com/")!
+public class OpenAIClient {
+    let version: String
+    let hostURL: URL
     var baseURL: URL {
         hostURL.appending(path: version)
     }
+    let session: URLSession
+    let apiKey: String
+    let orgId: String
 
-    var session: URLSession = URLSession.shared
-    var apiKey: String = "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"
-    var orgId: String = "org-LHn8F46kcMZ3IzDnuySzyYZm"
+    public init(
+        apiKey: String,
+        orgId: String = "org-LHn8F46kcMZ3IzDnuySzyYZm",
+        version: String = "v1",
+        hostURL: URL = URL(string: "https://api.openai.com/")!,
+        session: URLSession = URLSession.shared
+    ) {
+        self.apiKey = apiKey
+        self.orgId = orgId
+        self.version = version
+        self.hostURL = hostURL
+        self.session = session
+    }
 
-    private func createRequest(for service: OpenAPI) -> URLRequest {
+    private func createRequest(for service: OpenAIService) -> URLRequest {
         var request = URLRequest(url: service.url(host: self.baseURL))
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
 
-    func fetch(_ service: OpenAPI) async throws -> Data? {
+    func fetch(_ service: OpenAIService) async throws -> Data? {
         var request = self.createRequest(for: service)
         request.httpMethod = service.httpMethod
         if request.httpMethod == "POST" {
