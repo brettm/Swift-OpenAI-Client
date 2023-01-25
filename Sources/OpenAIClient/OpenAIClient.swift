@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Model: Encodable {}
+public protocol Model: Encodable {}
 
 public struct CompletionsModel: Model {
     var model: String
@@ -22,9 +22,16 @@ public struct CompletionsModel: Model {
         case maxTokens = "max_tokens"
         case temperature
     }
+    
+    public init(model: String, prompt: [String]? = nil, maxTokens: Int? = nil, temperature: Float? = nil) {
+        self.model = model
+        self.prompt = prompt
+        self.maxTokens = maxTokens
+        self.temperature = temperature
+    }
 }
 
-protocol Response: Decodable {}
+public protocol Response: Decodable {}
 
 public struct Usage: Decodable {
     var promptTokens: Int
@@ -39,10 +46,10 @@ public struct Usage: Decodable {
 }
 
 public struct Choice: Decodable {
-    var text: String
-    var index: Int
-    var logprobs: Int?
-    var finishReason: String
+    public var text: String
+    public var index: Int
+    public var logprobs: Int?
+    public var finishReason: String
 
     enum CodingKeys: String, CodingKey {
         case text
@@ -53,48 +60,48 @@ public struct Choice: Decodable {
 }
 
 public struct CompletionsResponse: Response {
-    var id: String
-    var object: String
-    var model: String
-    var choices: [Choice]
-    var usage: Usage
+    public var id: String
+    public var object: String
+    public var model: String
+    public var choices: [Choice]
+    public var usage: Usage
 }
 
 public enum OpenAIService {
     case completions(CompletionsModel)
 
-    var path: String {
+    public var path: String {
         switch self {
         case .completions:
             return "completions"
         }
     }
 
-    var httpMethod: String {
+    public var httpMethod: String {
         switch self {
         case .completions:
             return "POST"
         }
     }
 
-    var model: Model {
+    public var model: Model {
         switch self {
         case .completions(let model): return model
         }
     }
 
-    func url(host: URL) -> URL! {
+    public func url(host: URL) -> URL! {
         return host.appending(path: self.path)
     }
 
-    func request(client: OpenAIClient) async throws -> Response? {
+    public func request(client: OpenAIClient) async throws -> Response? {
         guard let data = try await client.fetch(self) else {
             return nil
         }
         return try self.response(from: data)
     }
 
-    func response(from data: Data) throws -> Response {
+    public func response(from data: Data) throws -> Response {
         switch self {
         case .completions(_): return try JSONDecoder().decode(CompletionsResponse.self, from: data)
         }
