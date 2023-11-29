@@ -30,11 +30,10 @@ dependencies: [
         let completionsModel = CompletionsModel(model: "davinci-002", prompt: [question], maxTokens: 128)
         let service = OpenAIService.completions(completionsModel)
         do {
-            let response = try await service.request(client: client)
+            let (data, httpResponse) = try await service.request(client: client)
             guard
-                let httpResponse = response.1,
-                httpResponse.statusCode == 200,
-                let completion = response.0 as? CompletionsResponse,
+                httpResponse?.statusCode == 200,
+                let completion = data as? CompletionsResponse,
                 let answer = completion.choices.first
             else {
                 // Check httpResponse for errors
@@ -43,6 +42,6 @@ dependencies: [
             print(answer)
         }
         catch {
-            XCTAssert(false, error.localizedDescription)
+            print(error.localizedDescription)
         }
 ```

@@ -10,10 +10,10 @@ import Foundation
 public protocol Model: Encodable {}
 
 public struct CompletionsModel: Model {
-    var model: String
-    var prompt: [String]?
-    var maxTokens: Int?
-    var temperature: Float?
+    public var model: String
+    public var prompt: [String]?
+    public var maxTokens: Int?
+    public var temperature: Float?
 
     enum CodingKeys: String, CodingKey {
         case model
@@ -31,9 +31,9 @@ public struct CompletionsModel: Model {
 }
 
 public struct Usage: Decodable {
-    var promptTokens: Int
-    var completionTokens: Int
-    var totalTokens: Int
+    public var promptTokens: Int
+    public var completionTokens: Int
+    public var totalTokens: Int
 
     enum CodingKeys: String, CodingKey {
         case promptTokens = "prompt_tokens"

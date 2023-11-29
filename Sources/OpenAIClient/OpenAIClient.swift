@@ -31,14 +31,7 @@ public class OpenAIClient {
         self.hostURL = hostURL
         self.session = session
     }
-
-    private func createRequest(for service: OpenAIService) -> URLRequest {
-        var request = URLRequest(url: service.url(host: self.baseURL))
-        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        return request
-    }
-
+    
     public func fetch(_ service: OpenAIService) async throws -> (Data, URLResponse?) {
         var request = self.createRequest(for: service)
         request.httpMethod = service.httpMethod
@@ -47,6 +40,13 @@ public class OpenAIClient {
             return try await session.data(for: request)
         }
         return (Data(), nil)
+    }
+
+    private func createRequest(for service: OpenAIService) -> URLRequest {
+        var request = URLRequest(url: service.url(host: self.baseURL))
+        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        return request
     }
 }
 
